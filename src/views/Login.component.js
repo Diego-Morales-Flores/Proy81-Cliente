@@ -1,29 +1,23 @@
 import React from 'react';
-import { View, StyleSheet, ImageBackground } from 'react-native';
-import * as Animatable from 'react-native-animatable';
-import { Icon, Input, Layout, ViewPager } from '@ui-kitten/components';
-import { Text } from '@ui-kitten/components';
-import { TouchableWithoutFeedback } from '@ui-kitten/components/devsupport';
+import { StyleSheet } from 'react-native';
+/* import { Icon, Input, Layout, ViewPager } from '@ui-kitten/components'; */
+/* import { Text } from '@ui-kitten/components'; */
+/* import { TouchableWithoutFeedback } from '@ui-kitten/components/devsupport'; */
 import { LayoutTemplante } from '../components/Layout.templante.component';
+import { Text } from "native-base";
 export const Login = ({ navigation }) => {
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [secureTextEntry, setSecureTextEntry] = React.useState(true);
-    const renderInputIcon = (props) => (
+/*     const renderInputIcon = (props) => (
         <TouchableWithoutFeedback onPress={toggleSecureEntry}>
             <Icon {...props} name={!secureTextEntry ? 'eye' : 'eye-off'} />
         </TouchableWithoutFeedback>
-    );
-    const EmailIcon = (props) => (
-        <Icon {...props} name='email' />
-    );
-    const KeyIcon = (props) => (
-        <Icon {...props} name='thermometer' />
-    );
-    const toggleSecureEntry = () => {
+    ); */
+    /* const toggleSecureEntry = () => {
         setSecureTextEntry(!secureTextEntry);
-    };
+    }; */
     return (
         <LayoutTemplante
             header={()=>
@@ -36,15 +30,15 @@ export const Login = ({ navigation }) => {
                     <Text /* style={styles.text} */ category='h4'>¡Bienvenidos!</Text>
                     <Text /* style={styles.text} */ category='s2' appearance='hint'>Inicia sesión para continuar</Text>
                     {/* <Icon name={'email'} style={styles.icon} fill='#8F9BB3'/> */}
-                    <Input
+                    {/* <Input
                         accessoryLeft={EmailIcon}
                         style={styles.input}
                         placeholder='Correo electrónico'
                         value={email}
                         onChangeText={setEmail}
-                    />
+                    /> */}
 
-                    <Input
+                    {/* <Input
                         style={styles.input}
                         accessoryLeft={KeyIcon}
                         placeholder='Contraseña'
@@ -52,7 +46,7 @@ export const Login = ({ navigation }) => {
                         secureTextEntry={secureTextEntry}
                         onChangeText={setPassword}
                         accessoryRight={renderInputIcon}
-                    />
+                    /> */}
                 </React.Fragment>
             }
         />

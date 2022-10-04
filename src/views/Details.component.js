@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, SafeAreaView, View } from 'react-native';
-import { Divider, Icon, Layout, Text, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
 
 
 export const DetailsScreen = ({ navigation }) => {
