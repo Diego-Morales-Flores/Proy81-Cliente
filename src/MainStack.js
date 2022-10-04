@@ -1,9 +1,9 @@
-import { HomeScreen } from './components/Home.component';
-import { DetailsScreen } from './components/Details.component';
+import { HomeScreen } from './views/Home.component';
+import { DetailsScreen } from './views/Details.component';
 import * as React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import { Login } from './components/Login.component';
+import { Login } from './views/Login.component';
 
 const Drawer = createDrawerNavigator();
 

@@ -4,6 +4,7 @@ import * as Animatable from 'react-native-animatable';
 import { Icon, Input, Layout, ViewPager } from '@ui-kitten/components';
 import { Text } from '@ui-kitten/components';
 import { TouchableWithoutFeedback } from '@ui-kitten/components/devsupport';
+import { LayoutTemplante } from '../components/Layout.templante.component';
 export const Login = ({ navigation }) => {
 
     const [email, setEmail] = React.useState('');
@@ -15,36 +16,33 @@ export const Login = ({ navigation }) => {
         </TouchableWithoutFeedback>
     );
     const EmailIcon = (props) => (
-        <Icon {...props} name='email'/>
-      );
-      const KeyIcon = (props) => (
-        <Icon {...props} name='thermometer'/>
-      );
+        <Icon {...props} name='email' />
+    );
+    const KeyIcon = (props) => (
+        <Icon {...props} name='thermometer' />
+    );
     const toggleSecureEntry = () => {
         setSecureTextEntry(!secureTextEntry);
     };
     return (
-        <ImageBackground source={require('../../images/font_1.jpg')} resizeMode="cover" style={styles.image}>
-            <View style={styles.container} >
-                <View style={styles.header}>
-                    {/* <Text style={styles.text_header}>Welcome!</Text> */}
-                </View>
-                <Animatable.View
-                    animation="fadeInUpBig"
-                    style={[styles.footer, {
-                        backgroundColor: 'rgba(255, 255, 255, 0.95)'
-                    }]}
-                >
+        <LayoutTemplante
+            header={()=>
+                <Text>
+                    ert
+                </Text>
+            }
+            component={()=>
+                <React.Fragment>
                     <Text /* style={styles.text} */ category='h4'>¡Bienvenidos!</Text>
                     <Text /* style={styles.text} */ category='s2' appearance='hint'>Inicia sesión para continuar</Text>
-                        {/* <Icon name={'email'} style={styles.icon} fill='#8F9BB3'/> */}
-                        <Input
+                    {/* <Icon name={'email'} style={styles.icon} fill='#8F9BB3'/> */}
+                    <Input
                         accessoryLeft={EmailIcon}
-                            style={styles.input}
-                            placeholder='Correo electrónico'
-                            value={email}
-                            onChangeText={setEmail}
-                        />
+                        style={styles.input}
+                        placeholder='Correo electrónico'
+                        value={email}
+                        onChangeText={setEmail}
+                    />
 
                     <Input
                         style={styles.input}
@@ -55,9 +53,9 @@ export const Login = ({ navigation }) => {
                         onChangeText={setPassword}
                         accessoryRight={renderInputIcon}
                     />
-                </Animatable.View>
-            </View>
-        </ImageBackground>
+                </React.Fragment>
+            }
+        />
     );
 };
 
@@ -65,11 +63,11 @@ const styles = StyleSheet.create({
     input: {
         /* flex: 1, */
         margin: 2,
-        marginTop:10
-      },
+        marginTop: 10
+    },
     container: {
         flexDirection: 'row',
-      },
+    },
     image: {
         flex: 1,
         justifyContent: "center"
@@ -78,7 +76,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: 32,
         height: 32,
-      },
+    },
     container: {
         flex: 1,
         /* backgroundColor: '#009387' */

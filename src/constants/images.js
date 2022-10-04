@@ -1,0 +1,1 @@
+export const IMAGE_FONT_1 = require('../../images/font_1.jpg');
