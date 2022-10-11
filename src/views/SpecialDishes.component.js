@@ -25,17 +25,17 @@ export const SpecialDishes = ({ navigation }) => {
         console.log(storeDishes.storeDishes);
     }, [storeDishes.storeDishes]) */
     const agregar = (id) => {
-        let findDish = storeDishes.storeDishes.find(item=>item.id===id)
-        if(findDish){
+        let findDish = storeDishes.storeDishes.find(item => item.id === id)
+        if (findDish) {
             let dishes = []
-            storeDishes.storeDishes.forEach(item=>{
-                if(item.id===id){
+            storeDishes.storeDishes.forEach(item => {
+                if (item.id === id) {
                     dishes.push({
                         ...item,
-                        amount:item.amount+1
+                        amount: item.amount + 1
                     })
                 }
-                else{
+                else {
                     dishes.push({
                         ...item
                     })
@@ -43,12 +43,12 @@ export const SpecialDishes = ({ navigation }) => {
             })
             storeDishes.setStoreDishes(dishes)
         }
-        else{
-            let busqueda = specialDishes.find(item=>item.id===id)
+        else {
+            let busqueda = specialDishes.find(item => item.id === id)
             let auxiliar = storeDishes.storeDishes
             auxiliar.push({
                 ...busqueda,
-                amount:1
+                amount: 1
             })
             storeDishes.setStoreDishes(auxiliar)
         }
@@ -60,9 +60,9 @@ export const SpecialDishes = ({ navigation }) => {
                 <VStack flex="1" pt='10'>
                     <HStack space={10
                     } alignContent={'flex-end'} width='100%'>
-                        <Button><ChevronLeftIcon /></Button>
+                        <Button onPress={() => navigation.navigate('Menu')}><ChevronLeftIcon /></Button>
 
-                        <Button>Carito</Button>
+                        <Button onPress={() => navigation.navigate('Carrito')} >Carrito</Button>
                     </HStack>
                     <Center flex={1} >
                         <Text bold fontSize={'3xl'}>
@@ -79,9 +79,9 @@ export const SpecialDishes = ({ navigation }) => {
                                 specialDishes.map(item =>
                                     <Center flex={1} key={item.id}>
                                         <CardButton name={item.name} departament={item.departament} price={item.price} imagen={item.imagen}
-                                        onAction = {()=>agregar(item.id)}
+                                            onAction={() => agregar(item.id)}
                                         />
-                                        
+
                                     </Center>
                                 )
                             }

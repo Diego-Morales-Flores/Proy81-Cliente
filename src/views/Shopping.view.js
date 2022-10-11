@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { LayoutTemplante } from '../components/Layout.templante.component';
-import { Box, Button, Image, Center, FormControl, Icon, Input, Stack, Text, WarningOutlineIcon, HStack, AspectRatio, VStack, DeleteIcon, ScrollView } from "native-base";
+import { Box, Button, Image, Center, FormControl, Icon, Input, Stack, Text, WarningOutlineIcon, HStack, AspectRatio, VStack, DeleteIcon, ScrollView, ChevronLeftIcon } from "native-base";
 import { MaterialIcons } from '@expo/vector-icons';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import { LayoutTemplante2 } from '../components/Layout2.templante.component';
@@ -52,10 +52,12 @@ export const Shopping = ({ navigation }) => {
     }
     return (
         <LayoutTemplante2
-
             component={() =>
                 <Box>
-                    <ScrollView w={["100%", "100%"]} h="85%">
+                    <ScrollView w={["100%", "100%"]} h="95%">
+                        {
+                            (storeDishes.storeDishes.length === 0 && storeExtras.storeExtras.length === 0) ? <Center><Text color={'black'} bold>No hay ningun producto en el carrito</Text></Center> : null
+                        }
                         <VStack flex="1" space={1}>
                             {
                                 storeDishes.storeDishes.map(
@@ -111,7 +113,10 @@ export const Shopping = ({ navigation }) => {
                             }
                         </VStack>
                     </ScrollView>
-                    <Button marginTop={50}><Text bold>Realizar compra</Text></Button>
+                    <HStack width={'100%'} space={2}>
+                    <Button onPress={() => navigation.navigate('Menu')}><ChevronLeftIcon /></Button>
+                    <Button width={'50%'} disabled><Text bold>Realizar compra</Text></Button>
+                    </HStack>
 
                 </Box>
             }

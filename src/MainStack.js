@@ -30,9 +30,9 @@ export default function MainStack() {
         <StoreLunchContext.Provider value={{ storeLunch, setStoreLunch }}>
           <UserContext.Provider value={{ storedCredentials, setStoredCredentials }}>
             <NavigationContainer>
-              <Drawer.Navigator initialRouteName="Extras" >
-                <Drawer.Screen name="Home" component={HomeScreen} />
-                <Drawer.Screen name="Notifications" component={DetailsScreen} />
+              <Drawer.Navigator initialRouteName="Iniciar Sesión" >
+                {/* <Drawer.Screen name="Home" component={HomeScreen} /> */}
+                {/* <Drawer.Screen name="Notifications" component={DetailsScreen} /> */}
                 <Drawer.Screen name="Iniciar Sesión" component={Login} />
                 <Drawer.Screen name="Registrarse" component={SignUp} />
                 <Drawer.Screen name="Menu" component={Menu} />

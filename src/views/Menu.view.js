@@ -30,7 +30,7 @@ export const Menu = ({ navigation }) => {
             </Box>
             <Stack direction={'column'} paddingTop={8}>
                 <Center>
-                    <Button variant="unstyled">
+                    <Button variant="unstyled" >
                     <Box bg="orange.500" alignItems="center"
                                 p="2" rounded="md" width={'300'}>
                             <Box bg="orange.600" alignItems="center"
@@ -44,7 +44,7 @@ export const Menu = ({ navigation }) => {
                     </Button>
                 </Center>
                 <Center>
-                    <Button variant="unstyled">
+                    <Button variant="unstyled" onPress={() => navigation.navigate('Platos Especiales')}>
                     <Box bg="yellow.400" alignItems="center"
                                 p="2" rounded="md" width={'300'}>
                             <Box bg="yellow.600" alignItems="center"
@@ -59,7 +59,7 @@ export const Menu = ({ navigation }) => {
                     
                 </Center>
                 <Center>
-                    <Button variant="unstyled">
+                    <Button variant="unstyled" onPress={() => navigation.navigate('Extras')}>
                     <Box bg="primary.800" alignItems="center"
                                 p="2" rounded="md" width={'300'}>
                             <Box bg="primary.900" alignItems="center"

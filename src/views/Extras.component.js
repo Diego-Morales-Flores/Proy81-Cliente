@@ -54,9 +54,9 @@ export const Extras = ({ navigation }) => {
                 <VStack flex="1" pt='10'>
                     <HStack space={10
                     } alignContent={'flex-end'} width='100%'>
-                        <Button><ChevronLeftIcon /></Button>
+                        <Button onPress={() => navigation.navigate('Menu')}><ChevronLeftIcon /></Button>
 
-                        <Button>Carito</Button>
+                        <Button onPress={() => navigation.navigate('Carrito')} >Carrito</Button>
                     </HStack>
                     <Center flex={1} >
                         <Text bold fontSize={'3xl'}>
