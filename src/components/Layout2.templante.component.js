@@ -3,7 +3,7 @@ import { View, StyleSheet, ImageBackground } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { IMAGE_FONT_1 } from '../constants/images';
 
-export const LayoutTemplante = ({ image, header=()=>null, component=()=>null }) => {
+export const LayoutTemplante2 = ({ image, header=()=>null, component=()=>null }) => {
     return (
         <ImageBackground source={image?image:IMAGE_FONT_1} resizeMode="cover" style={styles_0.image}>
             <View style={styles_0.container} >
@@ -47,10 +47,10 @@ const styles_0 = StyleSheet.create({
         /* backgroundColor: '#009387' */
     },
     header: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        paddingHorizontal: 20,
-        paddingBottom: 50,
+        /* flex: 1, */
+        /* justifyContent: 'flex-end', */
+        paddingHorizontal: 0,
+        paddingBottom: 15,
 
     },
     footer: {
