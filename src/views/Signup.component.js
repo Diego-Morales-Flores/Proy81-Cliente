@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { LayoutTemplante } from '../components/Layout.templante.component';
 import { Box, Button, Center, FormControl, Icon, Input, Stack, Text, WarningOutlineIcon } from "native-base";
 import { MaterialIcons } from '@expo/vector-icons';
@@ -10,7 +9,6 @@ export const SignUp = ({ navigation }) => {
     const [name, setName] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [password1, setPassword1] = React.useState('');
     return (
         <LayoutTemplante
             

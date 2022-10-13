@@ -1,18 +1,12 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { LayoutTemplante } from '../components/Layout.templante.component';
-import { Box, Button, Image, Center, FormControl, Icon, Input, Stack, Text, WarningOutlineIcon, HStack, AspectRatio, VStack, DeleteIcon, ScrollView, ChevronLeftIcon } from "native-base";
-import { MaterialIcons } from '@expo/vector-icons';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+
+import { Box, Button, Image, Center, Text, HStack, AspectRatio, VStack, DeleteIcon, ScrollView, ChevronLeftIcon } from "native-base";
+
 import { LayoutTemplante2 } from '../components/Layout2.templante.component';
-import useStoreDishes from '../hooks/useStoreDishes';
+
 import { DEFAULT, LUNCH } from '../constants/images';
-import useStoreExtras from '../hooks/useStoreExtras';
-import useStoreLunch from '../hooks/useStoreLunch';
+
 export const Shopping = ({ navigation, dishesState, setDishesState, extrasState, setExtrasState, lunchesState, setLunchesState }) => {
-    const storeDishes = useStoreDishes()
-    const storeLunch = useStoreLunch()
-    const storeExtras = useStoreExtras()
 
     const deleteDish = (id) => {
         let dishes = []

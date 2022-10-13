@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Button } from 'react-native';
 
-
 export const HomeScreen = ({ navigation }) => {
 
   return (

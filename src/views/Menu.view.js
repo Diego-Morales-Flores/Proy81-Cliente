@@ -1,16 +1,8 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { LayoutTemplante } from '../components/Layout.templante.component';
-import { Box, Button, Center, FormControl, Icon, Input, Stack, Text, WarningOutlineIcon } from "native-base";
+import { Box, Button, Center, Icon, Stack, Text } from "native-base";
 import { MaterialIcons } from '@expo/vector-icons';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 export const Menu = ({ navigation }) => {
 
-    const [showPassword, setShowPassword] = React.useState(false);
-    const [name, setName] = React.useState('');
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [password1, setPassword1] = React.useState('');
     return (
         <Box bgColor={'white'} height={'full'}>
             <Box /* alignItems={'center'} */ ml={10}>

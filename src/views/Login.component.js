@@ -1,15 +1,12 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { LayoutTemplante } from '../components/Layout.templante.component';
 import { Box, Button, Center, FormControl, Icon, Input, Stack, Text, WarningOutlineIcon } from "native-base";
 import { MaterialIcons } from '@expo/vector-icons';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 export const Login = ({ navigation }) => {
-
     const [showPassword, setShowPassword] = React.useState(false);
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [password1, setPassword1] = React.useState('');
     return (
         <LayoutTemplante
 
@@ -70,14 +67,14 @@ export const Login = ({ navigation }) => {
 
                         <Text color={'dark.500'} marginTop={10}>
                             ¿Nuevo usuario? {' '}
-                            
+
 
                         </Text>
                         <Button variant="unstyled" onPress={() => navigation.navigate('Registrarse')}>
-                                <Text color={'orange.400'} bold>
-                                    Registrate
-                                </Text>
-                            </Button>
+                            <Text color={'orange.400'} bold>
+                                Registrate
+                            </Text>
+                        </Button>
 
 
 

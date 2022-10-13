@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { LayoutTemplante } from '../components/Layout.templante.component';
-import { Box, Button, Center, FormControl, Icon, Input, Image, Stack, Text, WarningOutlineIcon, useTheme, VStack, ScrollView, Heading, AspectRatio, HStack } from "native-base";
+import { Box, Button, Center, Image, Stack, Text, VStack, Heading, AspectRatio, HStack } from "native-base";
 import { DEFAULT } from '../constants/images';
 
 export const CardButton = (props) => {
@@ -11,7 +9,7 @@ export const CardButton = (props) => {
         name = "nombre",
         price = 0,
         departament = 'La Paz',
-        onAction = ()=>console.log("f")
+        onAction = () => console.log("f")
     } = props
     return <Box alignItems="center">
         <Box maxW="80" rounded="2xl" overflow="hidden" borderColor="coolGray.200" borderWidth="1" >

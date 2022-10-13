@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
-import { StyleSheet } from 'react-native';
 import { LayoutTemplante } from '../components/Layout.templante.component';
 import { Box, Button, Center, FormControl, Icon, Input, Image, Stack, Text, WarningOutlineIcon, useTheme, VStack, ScrollView, Heading, AspectRatio, HStack, ChevronLeftIcon, AlertDialog } from "native-base";
 import { CALDO_DE_POLLO, PIQUE_MACHO, SAJTA, SPECIAL_DISHES } from '../constants/images';
 import { CardButton } from '../components/CardButton.component';
-import useUser from "../hooks/useUser";
-import useStoreDishes from '../hooks/useStoreDishes';
 const specialDishes = [
     { id: 1, name: 'Sajta', departament: 'La Paz', price: 20, imagen: SAJTA },
     { id: 2, name: 'Caldo de Pollo', departament: 'La Paz', price: 15, imagen: CALDO_DE_POLLO },

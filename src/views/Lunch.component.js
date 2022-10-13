@@ -1,36 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import { LayoutTemplante } from '../components/Layout.templante.component';
-import { Box, Button, Center, FormControl, Icon, Input, Image, Stack, Text, WarningOutlineIcon, useTheme, VStack, ScrollView, Heading, AspectRatio, HStack, ChevronLeftIcon, AlertDialog, Checkbox, Radio } from "native-base";
-import { MaterialIcons } from '@expo/vector-icons';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
-import { CALDO_DE_POLLO, LUNCH, PIQUE_MACHO, SAJTA, SPECIAL_DISHES } from '../constants/images';
-import { CardButton } from '../components/CardButton.component';
-import useUser from "../hooks/useUser";
-import useStoreDishes from '../hooks/useStoreDishes';
-import useStoreLunch from '../hooks/useStoreLunch';
-const specialDishes = [
-    { id: 1, name: 'Sajta', departament: 'La Paz', price: 20, imagen: SAJTA },
-    { id: 2, name: 'Caldo de Pollo', departament: 'La Paz', price: 15, imagen: CALDO_DE_POLLO },
-    { id: 3, name: 'Pique macho', departament: 'La Paz', price: 25, imagen: PIQUE_MACHO },
-]
+import { Box, Button, Center, Input, Text, VStack, ScrollView, HStack, ChevronLeftIcon, Radio } from "native-base";
+import { LUNCH } from '../constants/images';
+
 
 export const Lunch = ({ navigation, lunchesState, setLunchesState }) => {
-    const {
-        colors
-    } = useTheme();
-    const user = useUser();
-    const storeDishes = useStoreDishes()
-    const [isOpen, setIsOpen] = React.useState(false);
-    /* useEffect(() => {
-        console.log(storeDishes.storeDishes);
-    }, [storeDishes.storeDishes]) */
     const [lunch, setLunch] = React.useState('');
     const [amount, setAmount] = React.useState('');
-    const storeLunch = useStoreLunch()
-    /* useEffect(()=>{
-        console.log(lunchesState);
-    },[lunchesState]) */
     const agregar = () => {
         let findLunch = lunchesState.find(item => item.lunch === lunch)
         if (findLunch) {
@@ -113,7 +90,7 @@ export const Lunch = ({ navigation, lunchesState, setLunchesState }) => {
                                             console.log(amount);
                                         }
                                     } />
-                                <Button disabled={amount==='' || lunch===''} width={'68%'} onPress={agregar}>{`Total a Pagar: ${amount * 15} Bs`}</Button>
+                                <Button disabled={amount === '' || lunch === ''} width={'68%'} onPress={agregar}>{`Total a Pagar: ${amount * 15} Bs`}</Button>
                             </HStack>
                         </VStack>
                     </ScrollView>
