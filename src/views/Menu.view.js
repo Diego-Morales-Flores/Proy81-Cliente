@@ -30,7 +30,7 @@ export const Menu = ({ navigation }) => {
             </Box>
             <Stack direction={'column'} paddingTop={8}>
                 <Center>
-                    <Button variant="unstyled" >
+                    <Button variant="unstyled" onPress={() => navigation.navigate('Almuerzo')}>
                     <Box bg="orange.500" alignItems="center"
                                 p="2" rounded="md" width={'300'}>
                             <Box bg="orange.600" alignItems="center"

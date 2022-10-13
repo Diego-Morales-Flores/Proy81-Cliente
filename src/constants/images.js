@@ -11,3 +11,5 @@ export const PIQUE_MACHO = require('../../assets/pique_macho.jpg');
 export const COCA_COLA = require('../../assets/coca_cola.jpeg');
 export const MOCOCHINCHI = require('../../assets/mocochinchi.jpg');
 export const PEPSI = require('../../assets/pepsi.webp');
+
+export const LUNCH = require('../../assets/lunch.jpg');

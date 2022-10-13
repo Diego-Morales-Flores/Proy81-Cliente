@@ -6,12 +6,12 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import { LayoutTemplante2 } from '../components/Layout2.templante.component';
 import useStoreDishes from '../hooks/useStoreDishes';
-import { DEFAULT } from '../constants/images';
+import { DEFAULT, LUNCH } from '../constants/images';
 import useStoreExtras from '../hooks/useStoreExtras';
-
+import useStoreLunch from '../hooks/useStoreLunch';
 export const Shopping = ({ navigation }) => {
     const storeDishes = useStoreDishes()
-
+    const storeLunch = useStoreLunch()
     const storeExtras = useStoreExtras()
 
     const deleteDish = (id) => {
@@ -49,6 +49,24 @@ export const Shopping = ({ navigation }) => {
             }
         })
         storeExtras.setStoreExtras(dishes)
+    }
+    const deleteLunch = (id) => {
+        let Lunches = []
+        storeLunch.storeLunch.forEach(item => {
+            if (item.lunch === id) {
+                if (item.amount > 1)
+                    Lunches.push({
+                        ...item,
+                        amount: item.amount - 1
+                    })
+            }
+            else {
+                Lunches.push({
+                    ...item
+                })
+            }
+        })
+        storeLunch.setStoreLunch(Lunches)
     }
     return (
         <LayoutTemplante2
@@ -102,6 +120,33 @@ export const Shopping = ({ navigation }) => {
                                             </VStack>
 
                                             <VStack pt={9} ><Button onPress={() => deleteExtras(item.id)}>
+                                                <DeleteIcon color='white' />
+                                            </Button>
+                                            </VStack>
+
+
+                                        </HStack>
+                                    </Box>
+                                )
+                            }
+                        </VStack>
+                        <VStack flex="1" space={1}>
+                            {
+                                storeLunch.storeLunch.map(
+                                    item => <Box width={'100%'} height={'116px'} rounded="2xl" overflow="hidden" borderColor="coolGray.200" borderWidth="1" key={item.lunch}>
+                                        <HStack>
+                                            <Box p={2} width={'150px'} /* height={'150px'} */ >
+                                                <AspectRatio w="100%" >
+                                                    <Image rounded="2xl" source={LUNCH ? LUNCH : DEFAULT} alt="image" height={'auto'} width={'100%'} />
+                                                </AspectRatio>
+                                            </Box>
+                                            <VStack pr={2} width='150'>
+                                                <Text color={'dark.100'} fontSize={'xl'} bold>{item.lunch}</Text>
+                                                <Text color={'amber.600'}>Costo Total: {15 * item.amount} Bs</Text>
+                                                <Text color={'amber.600'}>Cantidad: {item.amount}</Text>
+                                            </VStack>
+
+                                            <VStack pt={9} ><Button onPress={() => deleteLunch(item.lunch)}>
                                                 <DeleteIcon color='white' />
                                             </Button>
                                             </VStack>

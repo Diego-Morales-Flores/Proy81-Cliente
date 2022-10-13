@@ -13,6 +13,7 @@ import StoreDishesContext from './context/StoreDishesContext';
 import StoreExtrasContext from './context/StoreExtrasContext';
 import StoreLunchContext from './context/StoreLunchContext';
 import { Shopping } from './views/Shopping.view';
+import { Lunch } from './views/Lunch.component';
 
 const Drawer = createDrawerNavigator();
 
@@ -39,6 +40,7 @@ export default function MainStack() {
                 <Drawer.Screen name="Platos Especiales" component={SpecialDishes} />
                 <Drawer.Screen name="Extras" component={Extras} />
                 <Drawer.Screen name="Carrito" component={Shopping} />
+                <Drawer.Screen name="Almuerzo" component={Lunch} />
               </Drawer.Navigator>
             </NavigationContainer>
           </UserContext.Provider>
