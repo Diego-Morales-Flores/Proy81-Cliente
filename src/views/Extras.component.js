@@ -8,7 +8,7 @@ import useUser from "../hooks/useUser";
 import useStoreExtras from '../hooks/useStoreExtras';
 import { EXTRAS } from '../constants/datos';
 
-export const Extras = ({ navigation }) => {
+export const Extras = ({ navigation, extrasState, setExtrasState}) => {
     const {
         colors
     } = useTheme();
@@ -16,13 +16,13 @@ export const Extras = ({ navigation }) => {
     const storeExtras = useStoreExtras()
     const [isOpen, setIsOpen] = React.useState(false);
     /* useEffect(() => {
-        console.log(storeExtras.storeExtras);
-    }, [storeExtras.storeExtras]) */
+        console.log(extrasState);
+    }, [extrasState]) */
     const agregar = (id) => {
-        let findDish = storeExtras.storeExtras.find(item=>item.id===id)
+        let findDish = extrasState.find(item=>item.id===id)
         if(findDish){
             let dishes = []
-            storeExtras.storeExtras.forEach(item=>{
+            extrasState.forEach(item=>{
                 if(item.id===id){
                     dishes.push({
                         ...item,
@@ -35,16 +35,16 @@ export const Extras = ({ navigation }) => {
                     })
                 }
             })
-            storeExtras.setStoreExtras(dishes)
+            setExtrasState(dishes)
         }
         else{
             let busqueda = EXTRAS.find(item=>item.id===id)
-            let auxiliar = storeExtras.storeExtras
+            let auxiliar = extrasState
             auxiliar.push({
                 ...busqueda,
                 amount:1
             })
-            storeExtras.setStoreExtras(auxiliar)
+            setExtrasState(auxiliar)
         }
     }
     return (

@@ -9,14 +9,14 @@ import useStoreDishes from '../hooks/useStoreDishes';
 import { DEFAULT, LUNCH } from '../constants/images';
 import useStoreExtras from '../hooks/useStoreExtras';
 import useStoreLunch from '../hooks/useStoreLunch';
-export const Shopping = ({ navigation }) => {
+export const Shopping = ({ navigation, dishesState, setDishesState, extrasState, setExtrasState, lunchesState, setLunchesState }) => {
     const storeDishes = useStoreDishes()
     const storeLunch = useStoreLunch()
     const storeExtras = useStoreExtras()
 
     const deleteDish = (id) => {
         let dishes = []
-        storeDishes.storeDishes.forEach(item => {
+        dishesState.forEach(item => {
             if (item.id === id) {
                 if (item.amount > 1)
                     dishes.push({
@@ -30,11 +30,11 @@ export const Shopping = ({ navigation }) => {
                 })
             }
         })
-        storeDishes.setStoreDishes(dishes)
+        setDishesState(dishes)
     }
     const deleteExtras = (id) => {
         let dishes = []
-        storeExtras.storeExtras.forEach(item => {
+        extrasState.forEach(item => {
             if (item.id === id) {
                 if (item.amount > 1)
                     dishes.push({
@@ -48,11 +48,11 @@ export const Shopping = ({ navigation }) => {
                 })
             }
         })
-        storeExtras.setStoreExtras(dishes)
+        setExtrasState(dishes)
     }
     const deleteLunch = (id) => {
         let Lunches = []
-        storeLunch.storeLunch.forEach(item => {
+        lunchesState.forEach(item => {
             if (item.lunch === id) {
                 if (item.amount > 1)
                     Lunches.push({
@@ -66,74 +66,74 @@ export const Shopping = ({ navigation }) => {
                 })
             }
         })
-        storeLunch.setStoreLunch(Lunches)
+        setLunchesState(Lunches)
     }
     return (
         <LayoutTemplante2
             component={() =>
                 <Box>
-                    <ScrollView w={["100%", "100%"]} h="95%">
+                    <ScrollView w={["100%", "100%"]} h="94%">
                         {
-                            (storeDishes.storeDishes.length === 0 && storeExtras.storeExtras.length === 0) ? <Center><Text color={'black'} bold>No hay ningun producto en el carrito</Text></Center> : null
+                            (dishesState.length === 0 && extrasState.length === 0) ? <Center><Text color={'black'} bold>No hay ningun producto en el carrito</Text></Center> : null
                         }
                         <VStack flex="1" space={1}>
                             {
-                                storeDishes.storeDishes.map(
-                                    item => <Box width={'100%'} height={'116px'} rounded="2xl" overflow="hidden" borderColor="coolGray.200" borderWidth="1" key={item.id}>
-                                        <HStack>
-                                            <Box p={2} width={'150px'} /* height={'150px'} */ >
-                                                <AspectRatio w="100%" >
-                                                    <Image rounded="2xl" source={item.imagen ? item.imagen : DEFAULT} alt="image" height={'auto'} width={'100%'} />
-                                                </AspectRatio>
-                                            </Box>
-                                            <VStack pr={2} width='150'>
-                                                <Text color={'dark.100'} fontSize={'2xl'} bold>{item.name}</Text>
-                                                <Text color={'amber.600'}>Costo Total: {item.price * item.amount} Bs</Text>
-                                                <Text color={'amber.600'}>Cantidad: {item.amount}</Text>
-                                            </VStack>
+                                dishesState.map(
+                                    item => <Center flex={1} key={item.id}>
+                                        <Box width={'100%'} height={'116px'} rounded="2xl" overflow="hidden" borderColor="coolGray.200" borderWidth="1">
+                                            <HStack>
+                                                <Box p={2} width={'150px'} /* height={'150px'} */ >
+                                                    <AspectRatio w="100%" >
+                                                        <Image rounded="2xl" source={item.imagen ? item.imagen : DEFAULT} alt="image" height={'auto'} width={'100%'} />
+                                                    </AspectRatio>
+                                                </Box>
+                                                <VStack pr={2} width='150'>
+                                                    <Text color={'dark.100'} fontSize={'2xl'} bold>{item.name}</Text>
+                                                    <Text color={'amber.600'}>Costo Total: {item.price * item.amount} Bs</Text>
+                                                    <Text color={'amber.600'}>Cantidad: {item.amount}</Text>
+                                                </VStack>
 
-                                            <VStack pt={9} ><Button onPress={() => deleteDish(item.id)}>
-                                                <DeleteIcon color='white' />
-                                            </Button>
-                                            </VStack>
+                                                <VStack pt={9} ><Button onPress={() => deleteDish(item.id)}>
+                                                    <DeleteIcon color='white' />
+                                                </Button>
+                                                </VStack>
 
 
-                                        </HStack>
-                                    </Box>
+                                            </HStack>
+                                        </Box>
+                                    </Center>
                                 )
                             }
-                        </VStack>
-                        <VStack flex="1" space={1}>
                             {
-                                storeExtras.storeExtras.map(
-                                    item => <Box width={'100%'} height={'116px'} rounded="2xl" overflow="hidden" borderColor="coolGray.200" borderWidth="1" key={item.id}>
-                                        <HStack>
-                                            <Box p={2} width={'150px'} /* height={'150px'} */ >
-                                                <AspectRatio w="100%" >
-                                                    <Image rounded="2xl" source={item.imagen ? item.imagen : DEFAULT} alt="image" height={'auto'} width={'100%'} />
-                                                </AspectRatio>
-                                            </Box>
-                                            <VStack pr={2} width='150'>
-                                                <Text color={'dark.100'} fontSize={'2xl'} bold>{item.name}</Text>
-                                                <Text color={'amber.600'}>Costo Total: {item.price * item.amount} Bs</Text>
-                                                <Text color={'amber.600'}>Cantidad: {item.amount}</Text>
-                                            </VStack>
+                                extrasState.map(
+                                    item => <Center flex={1} key={item.id}>
+                                        <Box width={'100%'} height={'116px'} rounded="2xl" overflow="hidden" borderColor="coolGray.200" borderWidth="1">
+                                            <HStack>
+                                                <Box p={2} width={'150px'} /* height={'150px'} */ >
+                                                    <AspectRatio w="100%" >
+                                                        <Image rounded="2xl" source={item.imagen ? item.imagen : DEFAULT} alt="image" height={'auto'} width={'100%'} />
+                                                    </AspectRatio>
+                                                </Box>
+                                                <VStack pr={2} width='150'>
+                                                    <Text color={'dark.100'} fontSize={'2xl'} bold>{item.name}</Text>
+                                                    <Text color={'amber.600'}>Costo Total: {item.price * item.amount} Bs</Text>
+                                                    <Text color={'amber.600'}>Cantidad: {item.amount}</Text>
+                                                </VStack>
 
-                                            <VStack pt={9} ><Button onPress={() => deleteExtras(item.id)}>
-                                                <DeleteIcon color='white' />
-                                            </Button>
-                                            </VStack>
+                                                <VStack pt={9} ><Button onPress={() => deleteExtras(item.id)}>
+                                                    <DeleteIcon color='white' />
+                                                </Button>
+                                                </VStack>
 
 
-                                        </HStack>
-                                    </Box>
+                                            </HStack>
+                                        </Box>
+                                    </Center>
                                 )
                             }
-                        </VStack>
-                        <VStack flex="1" space={1}>
                             {
-                                storeLunch.storeLunch.map(
-                                    item => <Box width={'100%'} height={'116px'} rounded="2xl" overflow="hidden" borderColor="coolGray.200" borderWidth="1" key={item.lunch}>
+                                lunchesState.map(
+                                    item => <Center key={item.lunch} flex={1}><Box width={'100%'} height={'116px'} rounded="2xl" overflow="hidden" borderColor="coolGray.200" borderWidth="1">
                                         <HStack>
                                             <Box p={2} width={'150px'} /* height={'150px'} */ >
                                                 <AspectRatio w="100%" >
@@ -154,16 +154,17 @@ export const Shopping = ({ navigation }) => {
 
                                         </HStack>
                                     </Box>
+                                    </Center>
                                 )
                             }
                         </VStack>
                     </ScrollView>
-                    <HStack width={'100%'} space={2}>
-                    <Button onPress={() => navigation.navigate('Menu')}><ChevronLeftIcon /></Button>
-                    <Button width={'50%'} disabled><Text bold>Realizar compra</Text></Button>
+                    <HStack width={'100%'} space={2} pt={2}>
+                        <Button onPress={() => navigation.navigate('Menu')}><ChevronLeftIcon /></Button>
+                        <Button width={'50%'} disabled><Text bold>Realizar compra</Text></Button>
                     </HStack>
 
-                </Box>
+                </Box >
             }
         />
     );

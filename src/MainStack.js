@@ -25,6 +25,10 @@ export default function MainStack() {
   const [storeExtras, setStoreExtras] = React.useState([]);
   const [storeLunch, setStoreLunch] = React.useState([]);
 
+  const [dishesState, setDishesState] = React.useState([]);
+  const [extrasState, setExtrasState] = React.useState([]);
+  const [lunchesState, setLunchesState] = React.useState([]);
+
   return (
     <StoreDishesContext.Provider value={{ storeDishes, setStoreDishes }}>
       <StoreExtrasContext.Provider value={{ storeExtras, setStoreExtras }}>
@@ -37,10 +41,10 @@ export default function MainStack() {
                 <Drawer.Screen name="Iniciar Sesión" component={Login} />
                 <Drawer.Screen name="Registrarse" component={SignUp} />
                 <Drawer.Screen name="Menu" component={Menu} />
-                <Drawer.Screen name="Platos Especiales" component={SpecialDishes} />
-                <Drawer.Screen name="Extras" component={Extras} />
-                <Drawer.Screen name="Carrito" component={Shopping} />
-                <Drawer.Screen name="Almuerzo" component={Lunch} />
+                <Drawer.Screen name="Platos Especiales" children={(props)=><SpecialDishes dishesState={dishesState} setDishesState={setDishesState} {...props}/>} />
+                <Drawer.Screen name="Extras" children={(props)=><Extras extrasState={extrasState} setExtrasState={setExtrasState} {...props}/>}/>
+                <Drawer.Screen name="Carrito" children={(props)=><Shopping dishesState={dishesState} setDishesState={setDishesState} extrasState={extrasState} setExtrasState={setExtrasState} lunchesState={lunchesState} setLunchesState={setLunchesState} {...props}/>}  />
+                <Drawer.Screen name="Almuerzo" children={(props)=><Lunch lunchesState={lunchesState} setLunchesState={setLunchesState} {...props}/>}/>
               </Drawer.Navigator>
             </NavigationContainer>
           </UserContext.Provider>

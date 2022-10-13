@@ -15,7 +15,7 @@ const specialDishes = [
     { id: 3, name: 'Pique macho', departament: 'La Paz', price: 25, imagen: PIQUE_MACHO },
 ]
 
-export const Lunch = ({ navigation }) => {
+export const Lunch = ({ navigation, lunchesState, setLunchesState }) => {
     const {
         colors
     } = useTheme();
@@ -29,13 +29,13 @@ export const Lunch = ({ navigation }) => {
     const [amount, setAmount] = React.useState('');
     const storeLunch = useStoreLunch()
     /* useEffect(()=>{
-        console.log(storeLunch.storeLunch);
-    },[storeLunch.storeLunch]) */
+        console.log(lunchesState);
+    },[lunchesState]) */
     const agregar = () => {
-        let findLunch = storeLunch.storeLunch.find(item => item.lunch === lunch)
+        let findLunch = lunchesState.find(item => item.lunch === lunch)
         if (findLunch) {
             let dishes = []
-            storeLunch.storeLunch.forEach(item => {
+            lunchesState.forEach(item => {
                 if (item.lunch === lunch) {
                     dishes.push({
                         ...item,
@@ -48,15 +48,15 @@ export const Lunch = ({ navigation }) => {
                     })
                 }
             })
-            storeLunch.setStoreLunch(dishes)
+            setLunchesState(dishes)
         }
         else {
-            let auxiliar = storeLunch.storeLunch
+            let auxiliar = lunchesState
             auxiliar.push({
                 lunch,
                 amount: Number(amount)
             })
-            storeLunch.setStoreLunch(auxiliar)
+            setLunchesState(auxiliar)
         }
         setLunch('')
         setAmount('')
