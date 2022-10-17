@@ -5,6 +5,11 @@ import {
 } from "native-base";
 import MainStack from './src/MainStack';
 // Define the config
+
+import TotalContext from './src/context/totalContext';
+import { useState } from "react";
+import TrolleyContext from "./src/context/TrolleyContext";
+
 const config = {
   useSystemColorMode: false,
   initialColorMode: "dark",
@@ -37,10 +42,21 @@ export default function App() {
       initialColorMode: 'light',
     },
   });
+  const [total, setTotal] = useState(0);
 
+  const [trolley, setTrolley] = useState({
+    lunches: [],
+    extras: [],
+    dishes: [],
+    total:0
+  });
   return (
     <NativeBaseProvider theme={theme}>
-      <MainStack />
+      <TotalContext.Provider value={{ total, setTotal }}>
+      <TrolleyContext.Provider value={{ trolley, setTrolley }}>
+        <MainStack />
+        </TrolleyContext.Provider>
+      </TotalContext.Provider>
     </NativeBaseProvider>
   );
 }

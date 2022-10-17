@@ -5,55 +5,73 @@ import { CardButton } from '../components/CardButton.component';
 import { EXTRAS } from '../constants/datos';
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-export const Extras = ({ navigation, extrasState, setExtrasState }) => {
+import useTrolley from "../hooks/useTrolley";
+export const Extras = ({ navigation }) => {
 
-    const agregar = (id) => {
-        let findDish = extrasState.find(item => item.id === id)
-        if (findDish) {
-            let dishes = []
-            extrasState.forEach(item => {
+    const { trolley, setTrolley } = useTrolley();
+    const agregarExtras = (id) => {
+        let findExtras = trolley.extras.find(item => item.id === id)
+        /* let findDish = extrasState.find(item => item.id === id) */
+        if (findExtras) {
+            let extras = []
+            let total = trolley.total
+            trolley.extras.forEach(item => {
                 if (item.id === id) {
-                    dishes.push({
+                    extras.push({
                         ...item,
                         amount: item.amount + 1
                     })
+                    total = total + item.price
                 }
                 else {
-                    dishes.push({
+                    extras.push({
                         ...item
                     })
                 }
             })
-            setExtrasState(dishes)
+            setTrolley({
+                extras,
+                lunches: trolley.lunches,
+                dishes: trolley.dishes,
+                total
+            })
         }
         else {
             let busqueda = EXTRAS.find(item => item.id === id)
-            let auxiliar = extrasState
+            let auxiliar = trolley.extras
+            let total = trolley.total + busqueda.price
+
             auxiliar.push({
                 ...busqueda,
                 amount: 1
             })
-            setExtrasState(auxiliar)
+            setTrolley({
+                extras: auxiliar,
+                lunches: trolley.lunches,
+                dishes: trolley.dishes,
+                total
+            })
         }
     }
-    useEffect(()=>console.log("Renderiza Estras"),[])
+    //useEffect(() => console.log(trolley), [trolley])
+    useEffect(() => console.log("Renderiza Estras"), [])
     return (
         <ImageBackground source={EXTRAS_IMAGE} resizeMode="cover" style={styles.image}>
             <View style={styles.container} >
                 <View style={styles.header}>
-                <VStack flex="1" pt='10'>
-                    <HStack space={10
-                    } alignContent={'flex-end'} width='100%'>
-                        <Button onPress={() => navigation.navigate('Menu')}><ChevronLeftIcon /></Button>
+                    <VStack flex="1" pt='10'>
+                        <HStack space={10
+                        } alignContent={'flex-end'} width='100%'>
+                            <Button onPress={() => navigation.navigate('Menu')}><ChevronLeftIcon /></Button>
 
-                        <Button onPress={() => navigation.navigate('Carrito')} >Carrito</Button>
-                    </HStack>
-                    <Center flex={1} >
-                        <Text bold fontSize={'3xl'} color={'white'}>
-                            EXTRAS
-                        </Text>
-                    </Center>
-                </VStack>
+                            <Button onPress={() => navigation.navigate('Carrito')} >{`Carrito, total ${trolley.total} Bs`}</Button>
+                        </HStack>
+                        <Center flex={1} >
+                            <Text bold fontSize={'3xl'} color={'white'}>
+                                EXTRAS
+                            </Text>
+                        </Center>
+                    </VStack>
                 </View>
                 <Animatable.View
                     animation="fadeInUpBig"
@@ -62,22 +80,22 @@ export const Extras = ({ navigation, extrasState, setExtrasState }) => {
                     }]}
                 >
                     <Box>
-                    <ScrollView w={["100%", "100%"]} h="100%">
-                        <VStack flex="1" space={1}>
-                            {
-                                EXTRAS.map(item =>
-                                    <Center flex={1} key={item.id}>
-                                        <CardButton name={item.name} departament={item.departament} price={item.price} imagen={item.imagen}
-                                            onAction={() => agregar(item.id)}
-                                        />
+                        <ScrollView w={["100%", "100%"]} h="100%">
+                            <VStack flex="1" space={1}>
+                                {
+                                    EXTRAS.map(item =>
+                                        <Center flex={1} key={item.id}>
+                                            <CardButton name={item.name} departament={item.departament} price={item.price} imagen={item.imagen}
+                                                onAction={() => agregarExtras(item.id)}
+                                            />
 
-                                    </Center>
-                                )
-                            }
+                                        </Center>
+                                    )
+                                }
 
-                        </VStack>
-                    </ScrollView>;
-                </Box>
+                            </VStack>
+                        </ScrollView>;
+                    </Box>
                 </Animatable.View>
             </View>
         </ImageBackground>
@@ -88,7 +106,7 @@ export const Extras = ({ navigation, extrasState, setExtrasState }) => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-      },
+    },
     image: {
         flex: 1,
         justifyContent: "center",

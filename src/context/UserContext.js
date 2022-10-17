@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-const UserContext = createContext({storedCredentials:{},setStoredCredentials:()=>{}})
+const UserContext = createContext({ storeUser: {}, setstoreUser: () => { } })
 
 export default UserContext;

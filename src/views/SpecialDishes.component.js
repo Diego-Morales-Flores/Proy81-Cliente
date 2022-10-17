@@ -5,22 +5,24 @@ import { CALDO_DE_POLLO, PIQUE_MACHO, SAJTA, SPECIAL_DISHES } from '../constants
 import { CardButton } from '../components/CardButton.component';
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-const specialDishes = [
-    { id: 1, name: 'Sajta', departament: 'La Paz', price: 20, imagen: SAJTA },
-    { id: 2, name: 'Caldo de Pollo', departament: 'La Paz', price: 15, imagen: CALDO_DE_POLLO },
-    { id: 3, name: 'Pique macho', departament: 'La Paz', price: 25, imagen: PIQUE_MACHO },
-]
+import useTrolley from "../hooks/useTrolley";
+import { SPECIALS } from '../constants/datos';
+
+
 export const SpecialDishes = ({ navigation, dishesState, setDishesState }) => {
-    const agregar = (id) => {
-        let findDish = dishesState.find(item => item.id === id)
-        if (findDish) {
+    const { trolley, setTrolley } = useTrolley();
+    const agregarDishes = (id) => {
+        let findDishes = trolley.dishes.find(item => item.id === id)
+        if (findDishes) {
             let dishes = []
-            dishesState.forEach(item => {
+            let total = trolley.total
+            trolley.dishes.forEach(item => {
                 if (item.id === id) {
                     dishes.push({
                         ...item,
                         amount: item.amount + 1
                     })
+                    total = total + item.price
                 }
                 else {
                     dishes.push({
@@ -28,19 +30,32 @@ export const SpecialDishes = ({ navigation, dishesState, setDishesState }) => {
                     })
                 }
             })
-            setDishesState(dishes)
+            setTrolley({
+                extras: trolley.extras,
+                lunches: trolley.lunches,
+                dishes,
+                total
+            })
         }
         else {
-            let busqueda = specialDishes.find(item => item.id === id)
-            let auxiliar = dishesState
+            let busqueda = SPECIALS.find(item => item.id === id)
+            let auxiliar = trolley.dishes
+            let total = trolley.total + busqueda.price
+
             auxiliar.push({
                 ...busqueda,
                 amount: 1
             })
-            setDishesState(auxiliar)
+            setTrolley({
+                extras: trolley.extras,
+                lunches: trolley.lunches,
+                dishes: auxiliar,
+                total
+            })
         }
     }
-    useEffect(()=>console.log("Renderiza SpecialDishes"),[])
+    //useEffect(() => console.log(trolley), [trolley])
+    useEffect(() => console.log("Renderiza SpecialDishes"), [])
     return (
         <ImageBackground source={SPECIAL_DISHES} resizeMode="cover" style={styles.image}>
             <View style={styles.container} >
@@ -50,7 +65,7 @@ export const SpecialDishes = ({ navigation, dishesState, setDishesState }) => {
                         } alignContent={'flex-end'} width='100%'>
                             <Button onPress={() => navigation.navigate('Menu')}><ChevronLeftIcon /></Button>
 
-                            <Button onPress={() => navigation.navigate('Carrito')} >Carrito</Button>
+                            <Button onPress={() => navigation.navigate('Carrito')} >{`Carrito, total ${trolley.total} Bs`}</Button>
                         </HStack>
                         <Center flex={1} >
                             <Text bold fontSize={'3xl'} color={'white'}>
@@ -69,10 +84,10 @@ export const SpecialDishes = ({ navigation, dishesState, setDishesState }) => {
                         <ScrollView w={["100%", "100%"]} h="100%">
                             <VStack flex="1" space={1}>
                                 {
-                                    specialDishes.map(item =>
+                                    SPECIALS.map(item =>
                                         <Center flex={1} key={item.id}>
                                             <CardButton name={item.name} departament={item.departament} price={item.price} imagen={item.imagen}
-                                                onAction={() => agregar(item.id)}
+                                                onAction={() => agregarDishes(item.id)}
                                             />
 
                                         </Center>
@@ -93,7 +108,7 @@ export const SpecialDishes = ({ navigation, dishesState, setDishesState }) => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-      },
+    },
     image: {
         flex: 1,
         justifyContent: "center",

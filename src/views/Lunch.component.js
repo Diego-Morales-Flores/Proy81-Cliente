@@ -5,41 +5,56 @@ import { Box, Button, Center, Input, Text, VStack, ScrollView, HStack, ChevronLe
 import { LUNCH } from '../constants/images';
 import { View, ImageBackground } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-
-export const Lunch = ({ navigation, lunchesState, setLunchesState }) => {
+import useTrolley from "../hooks/useTrolley";
+export const Lunch = ({ navigation }) => {
     const [lunch, setLunch] = React.useState('');
     const [amount, setAmount] = React.useState('');
-    const agregar = () => {
-        let findLunch = lunchesState.find(item => item.lunch === lunch)
-        if (findLunch) {
-            let dishes = []
-            lunchesState.forEach(item => {
-                if (item.lunch === lunch) {
-                    dishes.push({
+    const { trolley, setTrolley } = useTrolley();
+    const agregarDishes = (id) => {
+        let find = trolley.lunches.find(item => item.id === id)
+        if (find) {
+            let Lunches = []
+            let total = trolley.total
+            trolley.lunches.forEach(item => {
+                if (item.id === id) {
+                    Lunches.push({
                         ...item,
                         amount: item.amount + Number(amount)
                     })
+                    total = total + item.price
                 }
                 else {
-                    dishes.push({
+                    Lunches.push({
                         ...item
                     })
                 }
             })
-            setLunchesState(dishes)
+            setTrolley({
+                extras:trolley.extras,
+                lunches: Lunches,
+                dishes: trolley.dishes,
+                total
+            })
         }
         else {
-            let auxiliar = lunchesState
+
+            let auxiliar = trolley.lunches
+            let total = trolley.total + (Number(amount)*15)
             auxiliar.push({
                 lunch,
                 amount: Number(amount)
             })
-            setLunchesState(auxiliar)
+            setTrolley({
+                extras: trolley.extras,
+                lunches: auxiliar,
+                dishes: trolley.dishes,
+                total
+            })
         }
         setLunch('')
         setAmount('')
     }
-    useEffect(()=>console.log("Renderiza Lunch"),[])
+    useEffect(() => console.log("Renderiza Lunch"), [])
     return (
         <ImageBackground source={LUNCH} resizeMode="cover" style={styles.image}>
             <View style={styles.container} >
@@ -49,7 +64,7 @@ export const Lunch = ({ navigation, lunchesState, setLunchesState }) => {
                         } alignContent={'flex-end'} width='100%'>
                             <Button onPress={() => navigation.navigate('Menu')} ><ChevronLeftIcon /></Button>
 
-                            <Button onPress={() => navigation.navigate('Carrito')} >Carrito</Button>
+                            <Button onPress={() => navigation.navigate('Carrito')} >{`Carrito, total ${trolley.total} Bs`}</Button>
                         </HStack>
                         <Center flex={1} >
                             <Text bold color={'white'} fontSize={'3xl'}>
@@ -97,7 +112,7 @@ export const Lunch = ({ navigation, lunchesState, setLunchesState }) => {
                                                 console.log(amount);
                                             }
                                         } />
-                                    <Button disabled={amount === '' || lunch === ''} width={'68%'} onPress={agregar}>{`Total a Pagar: ${amount * 15} Bs`}</Button>
+                                    <Button disabled={amount === '' || lunch === ''} width={'68%'} onPress={agregarDishes}>{`Total a Pagar: ${amount * 15} Bs`}</Button>
                                 </HStack>
                             </VStack>
                         </ScrollView>
