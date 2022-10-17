@@ -1,10 +1,10 @@
-import React from 'react';
-import { LayoutTemplante } from '../components/Layout.templante.component';
+import React, { useEffect } from 'react';
 import { Box, Button, Center, Text, VStack, ScrollView, HStack, ChevronLeftIcon } from "native-base";
 import { EXTRAS_IMAGE } from '../constants/images';
 import { CardButton } from '../components/CardButton.component';
 import { EXTRAS } from '../constants/datos';
-
+import { View, StyleSheet, ImageBackground } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 export const Extras = ({ navigation, extrasState, setExtrasState }) => {
 
     const agregar = (id) => {
@@ -36,10 +36,11 @@ export const Extras = ({ navigation, extrasState, setExtrasState }) => {
             setExtrasState(auxiliar)
         }
     }
+    useEffect(()=>console.log("Renderiza Estras"),[])
     return (
-        <LayoutTemplante
-            image={EXTRAS_IMAGE}
-            header={() =>
+        <ImageBackground source={EXTRAS_IMAGE} resizeMode="cover" style={styles.image}>
+            <View style={styles.container} >
+                <View style={styles.header}>
                 <VStack flex="1" pt='10'>
                     <HStack space={10
                     } alignContent={'flex-end'} width='100%'>
@@ -48,14 +49,19 @@ export const Extras = ({ navigation, extrasState, setExtrasState }) => {
                         <Button onPress={() => navigation.navigate('Carrito')} >Carrito</Button>
                     </HStack>
                     <Center flex={1} >
-                        <Text bold fontSize={'3xl'}>
+                        <Text bold fontSize={'3xl'} color={'white'}>
                             EXTRAS
                         </Text>
                     </Center>
                 </VStack>
-            }
-            component={() =>
-                <Box>
+                </View>
+                <Animatable.View
+                    animation="fadeInUpBig"
+                    style={[styles.footer, {
+                        backgroundColor: 'rgba(255, 255, 255, 1)'
+                    }]}
+                >
+                    <Box>
                     <ScrollView w={["100%", "100%"]} h="100%">
                         <VStack flex="1" space={1}>
                             {
@@ -72,7 +78,87 @@ export const Extras = ({ navigation, extrasState, setExtrasState }) => {
                         </VStack>
                     </ScrollView>;
                 </Box>
-            }
-        />
+                </Animatable.View>
+            </View>
+        </ImageBackground>
     );
 };
+
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+      },
+    image: {
+        flex: 1,
+        justifyContent: "center",
+        resizeMode: 'cover',
+    },
+    container: {
+        flex: 1,
+        /* backgroundColor: '#009387' */
+    },
+    header: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        paddingHorizontal: 20,
+        paddingBottom: 50,
+
+    },
+    footer: {
+        flex: 3,
+        backgroundColor: '#fff',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        paddingHorizontal: 20,
+        paddingVertical: 30
+    },
+    text_header: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 30
+    },
+    text_footer: {
+        color: '#05375a',
+        fontSize: 18
+    },
+    action: {
+        flexDirection: 'row',
+        marginTop: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#f2f2f2',
+        paddingBottom: 5
+    },
+    actionError: {
+        flexDirection: 'row',
+        marginTop: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#FF0000',
+        paddingBottom: 5
+    },
+    textInput: {
+        flex: 1,
+        marginTop: Platform.OS === 'ios' ? 0 : -12,
+        paddingLeft: 10,
+        color: '#05375a',
+    },
+    errorMsg: {
+        color: '#FF0000',
+        fontSize: 14,
+    },
+    button: {
+        alignItems: 'center',
+        marginTop: 50
+    },
+    signIn: {
+        width: '100%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10
+    },
+    textSign: {
+        fontSize: 18,
+        fontWeight: 'bold'
+    }
+});
