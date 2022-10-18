@@ -8,9 +8,8 @@ import * as Animatable from 'react-native-animatable';
 import { IMAGE_FONT_1 } from '../constants/images';
 import useTrolley from "../hooks/useTrolley";
 import { EXTRAS, SPECIALS } from '../constants/datos';
-export const Shopping = ({ navigation, dishesState, setDishesState, extrasState, setExtrasState, lunchesState, setLunchesState }) => {
+export const Shopping = ({ navigation }) => {
     const { trolley, setTrolley } = useTrolley();
-    const [total, setTotal] = useState(0);
     const deleteDish = (id) => {
         let busqueda = SPECIALS.find(item => item.id === id)
         let dishes = []
@@ -87,29 +86,8 @@ export const Shopping = ({ navigation, dishesState, setDishesState, extrasState,
             total
         })
     }
-    useEffect(() => {
-        reajuste(lunchesState, dishesState, extrasState)
 
-    }, [dishesState, extrasState, lunchesState])
-
-    function reajuste(lunches, dishes, extras) {
-        setTotal(0);
-        lunches.forEach(item => {
-            console.log(item);
-            setTotal(total + (item.amount * item.price));
-        });
-        dishes.forEach(item => {
-            console.log(item);
-            setTotal(total + (item.amount * item.price));
-        });
-        extras.forEach(item => {
-            console.log(item);
-            setTotal(total + (item.amount * item.price));
-        });
-    }
     useEffect(() => console.log("Renderiza Shopping"), [])
-
-    useEffect(() => console.log(total), [total])
     return (
         <ImageBackground source={IMAGE_FONT_1} resizeMode="cover" style={styles_0.image}>
             <View style={styles_0.container} >
@@ -211,7 +189,7 @@ export const Shopping = ({ navigation, dishesState, setDishesState, extrasState,
                         </ScrollView>
                         <HStack width={'100%'} space={2} pt={2}>
                             <Button width={'9%'} onPress={() => navigation.navigate('Menu')}><ChevronLeftIcon /></Button>
-                            <Button width={'91%'} disabled={trolley.total <= 0}><Text bold>Costo Total: {trolley.total} Bs</Text></Button>
+                            <Button width={'91%'} disabled={trolley.total <= 0} onPress={() => navigation.navigate('Factura')}><Text bold>Costo Total: {trolley.total} Bs</Text></Button>
                         </HStack>
 
                     </Box >

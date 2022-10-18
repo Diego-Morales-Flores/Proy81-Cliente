@@ -6,9 +6,9 @@ import {
 import MainStack from './src/MainStack';
 // Define the config
 
-import TotalContext from './src/context/totalContext';
 import { useState } from "react";
 import TrolleyContext from "./src/context/TrolleyContext";
+import User from "./src/context/UserContext";
 
 const config = {
   useSystemColorMode: false,
@@ -42,21 +42,26 @@ export default function App() {
       initialColorMode: 'light',
     },
   });
-  const [total, setTotal] = useState(0);
-
+  const [user, setUser] = useState({
+    sesion: false,
+    token: '',
+    name: '',
+    lastname: '',
+    email:''
+  });
   const [trolley, setTrolley] = useState({
     lunches: [],
     extras: [],
     dishes: [],
-    total:0
+    total: 0
   });
   return (
     <NativeBaseProvider theme={theme}>
-      <TotalContext.Provider value={{ total, setTotal }}>
-      <TrolleyContext.Provider value={{ trolley, setTrolley }}>
-        <MainStack />
+      <User.Provider value={{ user, setUser }}>
+        <TrolleyContext.Provider value={{ trolley, setTrolley }}>
+          <MainStack />
         </TrolleyContext.Provider>
-      </TotalContext.Provider>
+      </User.Provider>
     </NativeBaseProvider>
   );
 }

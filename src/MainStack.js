@@ -8,24 +8,23 @@ import { SpecialDishes } from './views/SpecialDishes.component';
 import { Extras } from './views/Extras.component';
 import { Shopping } from './views/Shopping.view';
 import { Lunch } from './views/Lunch.component';
+import { Invoice } from './views/Invoice.view';
 
 const Drawer = createDrawerNavigator();
 
 export default function MainStack() {
-  
-  const [dishesState, setDishesState] = React.useState([]);
-  const [extrasState, setExtrasState] = React.useState([]);
-  const [lunchesState, setLunchesState] = React.useState([]);
+
 
   return (<NavigationContainer>
     <Drawer.Navigator initialRouteName="Iniciar Sesión" >
       <Drawer.Screen name="Iniciar Sesión" component={Login} />
       <Drawer.Screen name="Registrarse" component={SignUp} />
       <Drawer.Screen name="Menu" component={Menu} />
-      <Drawer.Screen name="Platos Especiales" children={(props) => <SpecialDishes dishesState={dishesState} setDishesState={setDishesState} {...props} />} />
-      <Drawer.Screen name="Extras" children={(props) => <Extras extrasState={extrasState} setExtrasState={setExtrasState} {...props} />} />
-      <Drawer.Screen name="Carrito" children={(props) => <Shopping dishesState={dishesState} setDishesState={setDishesState} extrasState={extrasState} setExtrasState={setExtrasState} lunchesState={lunchesState} setLunchesState={setLunchesState} {...props} />} />
-      <Drawer.Screen name="Almuerzo" children={(props) => <Lunch lunchesState={lunchesState} setLunchesState={setLunchesState} {...props} />} />
+      <Drawer.Screen name="Platos Especiales" component={SpecialDishes}/>
+      <Drawer.Screen name="Extras" component={Extras}/>
+      <Drawer.Screen name="Carrito" component={Shopping}/>
+      <Drawer.Screen name="Almuerzo"  component={Lunch}/>
+      <Drawer.Screen name="Factura"  component={Invoice}/>
     </Drawer.Navigator>
   </NavigationContainer>
   );

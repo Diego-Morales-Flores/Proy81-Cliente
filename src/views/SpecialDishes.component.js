@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { Box, Button, Center, Text, VStack, ScrollView, HStack, ChevronLeftIcon } from "native-base";
-import { CALDO_DE_POLLO, PIQUE_MACHO, SAJTA, SPECIAL_DISHES } from '../constants/images';
+import { SPECIAL_DISHES } from '../constants/images';
 import { CardButton } from '../components/CardButton.component';
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import * as Animatable from 'react-native-animatable';
@@ -9,7 +9,7 @@ import useTrolley from "../hooks/useTrolley";
 import { SPECIALS } from '../constants/datos';
 
 
-export const SpecialDishes = ({ navigation, dishesState, setDishesState }) => {
+export const SpecialDishes = ({ navigation }) => {
     const { trolley, setTrolley } = useTrolley();
     const agregarDishes = (id) => {
         let findDishes = trolley.dishes.find(item => item.id === id)

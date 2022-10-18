@@ -6,16 +6,51 @@ import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { IMAGE_FONT_1 } from '../constants/images';
+import AlertComponent from '../components/Alert.component';
+import { createAction } from '../services/actions';
+import axios from 'axios';
+import { REACT_APP_BACKEND_URL } from '../config/constants';
+import useUser from "../hooks/useUser";
 export const Login = ({ navigation }) => {
     const [showPassword, setShowPassword] = React.useState(false);
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    useEffect(()=>console.log("Renderiza Login"),[])
+    const [loading, setLoading] = React.useState(false);
+
+    const { setUser } = useUser();
+
+    const [alert, setAlert] = React.useState('');
+    useEffect(() => console.log("Renderiza Login"), [])
+
+    const sesion = () => {
+        setLoading(true)
+        axios.post(REACT_APP_BACKEND_URL + 'auth', { email, password })
+            .then((response) => {
+                if (response.status === 203) {
+                    console.error('El usuario o la contraseña son incorrectos');
+                }
+                else
+                    if (response.status === 201) {
+                        console.log(response.data);
+                        setUser({
+                            sesion: true,
+                            token: response.data.token,
+                            name: response.data.name,
+                            lastname: response.data.lastname,
+                            email: response.data.email
+                        })
+                        navigation.navigate('Menu')
+                    }
+            })
+            .catch((e) => console.error(e))
+            .finally(() => setLoading(false))
+    }
+    //() => navigation.navigate('Menu')
     return (
         <ImageBackground source={IMAGE_FONT_1} resizeMode="cover" style={styles.image}>
             <View style={styles.container} >
                 <View style={styles.header}>
-                    
+
                 </View>
                 <Animatable.View
                     animation="fadeInUpBig"
@@ -24,75 +59,76 @@ export const Login = ({ navigation }) => {
                     }]}
                 >
                     <Box>
-                    <Text fontSize="xl" bold color={'black'}>¡Bienvenidos!</Text>
-                    <Text color={'text.400'} >Inicia sesión para continuar</Text>
-                    <Stack direction="row" mb="2.5" mt="4" space={4} width={'full'}>
-                        <Center width={'15%'}>
-                            <Box bg="primary.50" alignItems="center"
-                                p="2" rounded="xl">
-                                <Icon as={<MaterialIcons name="email" />} size={6} color="primary.800" marginTop={2} marginBottom={2} />
-                            </Box>
-                        </Center>
-                        <Center width={'80%'} >
-                            <FormControl>
-                                <FormControl.Label>
-                                    <Text fontSize="xs" bold color={'dark.300'}>CORREO ELECTRÓNICO</Text>
-                                </FormControl.Label>
-                                <Input variant="underlined" borderBottomColor={'dark.700'} color={'black'} value={email} onChangeText={text => setEmail(text)} />
-                                <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-                                    Try different from previous passwords.
-                                </FormControl.ErrorMessage>
-                            </FormControl>
-                        </Center>
-                    </Stack>
-                    <Stack direction="row" mb="2.5" mt="1.5" space={4}>
-                        <Center width={'15%'}>
-                            <Box bg="primary.50" alignItems="center"
-                                p="2" rounded="xl">
-                                <Icon as={<MaterialIcons name="keyboard" />} size={6} color="primary.800" marginTop={2} marginBottom={2} />
-                            </Box>
-                        </Center>
-                        <Center width={'80%'}>
-                            <FormControl>
-                                <FormControl.Label><Text fontSize="xs" bold color={'dark.300'}>CONSTRASEÑA</Text></FormControl.Label>
-                                <Input variant="underlined" placeholder="" color={'black'} type={showPassword ? "text" : "password"}
-                                    InputRightElement={<Pressable onPress={() => setShowPassword(!showPassword)}><Icon as={<MaterialIcons name={showPassword ? "visibility" : "visibility-off"} />}
-                                        size={4} mr="2" color="muted.400" /></Pressable>}
-                                    borderBottomColor={'dark.700'}
-                                    value={password} onChangeText={setPassword}
-                                    onch
-                                />
-                                <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-                                    Try different from previous passwords.
-                                </FormControl.ErrorMessage>
-                            </FormControl>
-                        </Center>
+                        <Text fontSize="xl" bold color={'black'}>¡Bienvenidos!</Text>
+                        <Text color={'text.400'} >Inicia sesión para continuar</Text>
+                        <Stack direction="row" mb="2.5" mt="4" space={4} width={'full'}>
+                            <Center width={'15%'}>
+                                <Box bg="primary.50" alignItems="center"
+                                    p="2" rounded="xl">
+                                    <Icon as={<MaterialIcons name="email" />} size={6} color="primary.800" marginTop={2} marginBottom={2} />
+                                </Box>
+                            </Center>
+                            <Center width={'80%'} >
+                                <FormControl>
+                                    <FormControl.Label>
+                                        <Text fontSize="xs" bold color={'dark.300'}>CORREO ELECTRÓNICO</Text>
+                                    </FormControl.Label>
+                                    <Input variant="underlined" borderBottomColor={'dark.700'} color={'black'} value={email} onChangeText={text => setEmail(text)} />
+                                    <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+                                        Try different from previous passwords.
+                                    </FormControl.ErrorMessage>
+                                </FormControl>
+                            </Center>
+                        </Stack>
+                        <Stack direction="row" mb="2.5" mt="1.5" space={4}>
+                            <Center width={'15%'}>
+                                <Box bg="primary.50" alignItems="center"
+                                    p="2" rounded="xl">
+                                    <Icon as={<MaterialIcons name="keyboard" />} size={6} color="primary.800" marginTop={2} marginBottom={2} />
+                                </Box>
+                            </Center>
+                            <Center width={'80%'}>
+                                <FormControl>
+                                    <FormControl.Label><Text fontSize="xs" bold color={'dark.300'}>CONSTRASEÑA</Text></FormControl.Label>
+                                    <Input variant="underlined" placeholder="" color={'black'} type={showPassword ? "text" : "password"}
+                                        InputRightElement={<Pressable onPress={() => setShowPassword(!showPassword)}><Icon as={<MaterialIcons name={showPassword ? "visibility" : "visibility-off"} />}
+                                            size={4} mr="2" color="muted.400" /></Pressable>}
+                                        borderBottomColor={'dark.700'}
+                                        value={password} onChangeText={setPassword}
+                                        onch
+                                    />
+                                    <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+                                        Try different from previous passwords.
+                                    </FormControl.ErrorMessage>
+                                </FormControl>
+                            </Center>
 
 
 
-                    </Stack>
-                    <Button marginTop={5} size={'lg'} onPress={() => navigation.navigate('Menu')}><Text bold>Iniciar sesión</Text></Button>
-                    <Box alignItems={'center'}>
-                        <Text color={'dark.500'} marginTop={6}>
-                            ¿Olvidaste tu contraseña?
-                        </Text>
-
-                        <Text color={'dark.500'} marginTop={10}>
-                            ¿Nuevo usuario? {' '}
-
-
-                        </Text>
-                        <Button variant="unstyled" onPress={() => navigation.navigate('Registrarse')}>
-                            <Text color={'orange.400'} bold>
-                                Registrate
+                        </Stack>
+                        <Button disabled={loading} marginTop={5} size={'lg'} onPress={sesion}><Text bold>Iniciar sesión</Text></Button>
+                        <Box alignItems={'center'}>
+                            <Text color={'dark.500'} marginTop={6}>
+                                ¿Olvidaste tu contraseña?
                             </Text>
-                        </Button>
+
+                            <Text color={'dark.500'} marginTop={10}>
+                                ¿Nuevo usuario? {' '}
+
+
+                            </Text>
+                            <Button variant="unstyled" onPress={() => navigation.navigate('Registrarse')}>
+                                <Text color={'orange.400'} bold>
+                                    Registrate
+                                </Text>
+                            </Button>
 
 
 
 
+                        </Box>
                     </Box>
-                </Box>
+                    <AlertComponent />
                 </Animatable.View>
             </View>
         </ImageBackground>
@@ -103,7 +139,7 @@ export const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-      },
+    },
     image: {
         flex: 1,
         justifyContent: "center",

@@ -1,14 +1,17 @@
 import React from 'react';
 import { Box, Button, Center, Icon, Stack, Text } from "native-base";
 import { MaterialIcons } from '@expo/vector-icons';
+import useUser from "../hooks/useUser";
+
 export const Menu = ({ navigation }) => {
+    const { user } = useUser();
 
     return (
         <Box bgColor={'white'} height={'full'}>
             <Box /* alignItems={'center'} */ ml={10}>
 
                 <Text color={'dark.100'} bold fontSize="2xl">
-                    ¿Hambriento Jose?
+                    {`¿Hambriento ${user.name} ${user.lastname}?`}
                 </Text>
             </Box>
             <Box /* alignItems={'center'} */ml={10}>
